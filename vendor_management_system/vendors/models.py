@@ -48,3 +48,4 @@ class HistoricalPerformance(models.Model):
 
     def __str__(self):
         return f"{self.vendor.name} - {self.date}"
+
