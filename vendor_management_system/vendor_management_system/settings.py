@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_CORE_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = [
+    "rest_framework"
+]
+
+VENDOR_MANAGEMENT_SYSTEM_APP = ["vendors"]
+
+INSTALLED_APPS = DJANGO_CORE_APPS + THIRD_PARTY_APPS + VENDOR_MANAGEMENT_SYSTEM_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,13 +78,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vendor_management_system.wsgi.application'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'vendors_management',
+        'USER': 'postgres',
+        'PASSWORD': 'pass1122',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
