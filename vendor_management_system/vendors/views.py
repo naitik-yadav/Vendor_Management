@@ -3,12 +3,15 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Vendor, PurchaseOrder
 from .serializers import VendorSerializer, PurchaseOrderSerializer
 
 
 class VendorListCreateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         vendors = Vendor.objects.all()
         serializer = VendorSerializer(vendors, many=True)
@@ -23,6 +26,8 @@ class VendorListCreateAPIView(APIView):
 
 
 class VendorRetrieveUpdateDestroyAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, vendor_id):
         vendor = Vendor.objects.get(pk=vendor_id)
         serializer = VendorSerializer(vendor)
@@ -43,6 +48,8 @@ class VendorRetrieveUpdateDestroyAPIView(APIView):
 
 
 class PurchaseOrderListCreateAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         purchase_orders = PurchaseOrder.objects.all()
         serializer = PurchaseOrderSerializer(purchase_orders, many=True)
@@ -57,6 +64,8 @@ class PurchaseOrderListCreateAPIView(APIView):
 
 
 class PurchaseOrderRetrieveUpdateDestroyAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, po_id):
         purchase_order = PurchaseOrder.objects.get(pk=po_id)
         serializer = PurchaseOrderSerializer(purchase_order)
@@ -77,6 +86,8 @@ class PurchaseOrderRetrieveUpdateDestroyAPIView(APIView):
 
 
 class VendorPerformanceAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, vendor_id):
         vendor = Vendor.objects.get(pk=vendor_id)
 
